@@ -14,7 +14,7 @@ import itertools
 
 #main module responsible for handling dataset and calling functions
 def main():
-	readSequences("TODO")
+	readSequences("sample.fasta")
 
 
 #---AUSTIN---
@@ -22,7 +22,23 @@ def main():
 #one or more sequences. If more than one sequence exists the data must be split into 
 #seperate dictionary structs and returned to the calling method
 def readSequences( file_name ):
-	print("TODO")
+    dicts = []
+    with open(file_name, "r") as fasta:
+        line = fasta.readline()
+        tmp = {}
+        key = ""
+        while line:
+            if '>' in line:
+                key = line.strip('\n')
+                tmp[key] = ""
+            else:   
+                tmp[key] = tmp[key] + line.strip('\n')
+
+            line = fasta.readline()
+            
+    print(tmp)
+    return tmp
+	
 
 
 
@@ -54,7 +70,7 @@ def extendMatchedSeeds( reference, matchedSeeds ):
 
     # get the alignment for every matched seed
     for item in matchedSeeds.values():
-        sequence.append(sw(reference, item)
+        sequence.append(sw(reference, item))
 
     return sequence
            
