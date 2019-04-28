@@ -19,7 +19,7 @@ def main():
 
 #---AUSTIN---
 #readSequences is responsible for reading in a FASTA formatted file, that may contain
-#one or more sequences. If more than one sequence exists the data must be split into 
+#one or more sequences. If more than one sequence exists the data must be split into
 #seperate dictionary structs and returned to the calling method
 def readSequences( file_name ):
     dicts = []
@@ -53,8 +53,8 @@ def generateSeeds( file_name ):
 
 #---Jennie---
 #matchSeedOnReference is responsible for searching the reference sequence(s) for
-#matching sets of given seeds, once found in sequence, added to a dictionary of 
-#"matched" seeds to be returned to calling method	
+#matching sets of given seeds, once found in sequence, added to a dictionary of
+#"matched" seeds to be returned to calling method
 def matchSeedOnReference( reference, seeds ):
 	print("TODO")
 
@@ -73,7 +73,7 @@ def extendMatchedSeeds( reference, matchedSeeds ):
         sequence.append(sw(reference, item))
 
     return sequence
-           
+
 
 
 # helper function for SW
@@ -115,10 +115,11 @@ def sw(a, b, match_score=3, gap_cost=2):
 
 
 #---Jake---
-#localAlignment is responsible for perfoming the final local sequence alignment of the 
+#localAlignment is responsible for perfoming the final local sequence alignment of the
 #matched and extended seeds to the reference sequence(s), utilizing the Smith-Waterman Algorithm
 def localAlignment( reference, finalSeeds ):
-	print("TODO")
+	begining , ending = sw(reference,finalSeeds);
+	print(reference[begining:ending]);
 
 
 #ensure we can forward declare our methods.
