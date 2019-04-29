@@ -56,7 +56,15 @@ def generateSeeds( file_name ):
 #matching sets of given seeds, once found in sequence, added to a dictionary of
 #"matched" seeds to be returned to calling method
 def matchSeedOnReference( reference, seeds ):
-	print("TODO")
+    matched = {}
+    index = 0
+    for seed in seeds.values():
+        for refString in reference.values():
+            if seed in refString and seed not in matched.values():
+                matched[index] = seed
+                index += 1
+		
+    return matched
 
 
 
