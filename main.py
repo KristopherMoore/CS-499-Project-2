@@ -47,7 +47,32 @@ def readSequences( file_name ):
 #and utilzing the K-Mer Exact Match Seeding process to develop K-mer seeds to be
 #matched upon our reference sequence, return dictionary of seeds to calling method
 def generateSeeds( file_name ):
-	print("TODO")
+	
+   dict = readSequences( file_name )
+   
+   #loop through each element, then at each element parse possibility of string of current index to index + k.
+   for element in sequence:
+      subString = ""
+      byteSubString = b""
+      
+      i = int(element)
+      while i < element + k:
+         if(element + k > len(sequence)):
+            break
+         if(sequence[i] == "\n"):
+            i = element + k  #ensure we escape our while loop, no relevent mers to be found here
+            break
+         
+         subString += sequence[i]
+         i = i+1
+      
+      #check if the key already exists if so then add to its count, else make the count 1
+      if subString in dict:
+         dict[subString] = dict.get(subString, 0) + 1
+      elif(len(subString) == k):
+         dict[subString] = 1
+         
+   return dict
 
 
 
