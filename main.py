@@ -183,15 +183,16 @@ def matchSeedOnReference( reference, seeds ):
 # them along the referenceString, where applicable. This process is detailed further in
 # https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4695832
 
-def extendMatchedSeeds( reference, matchedSeeds ):
-    sequence = []
+def extendMatchedSeeds( references, matchedSeeds ):
+   sequence = []
 
-    # get the alignment for every matched seed
-    for item in matchedSeeds.values():
-        sequence.append(sw(reference, item))
+   # get the alignment for every matched seed
+   for item in matchedSeeds.values():
+      for reference in references.values():
+         sequence.append(sw(reference, item))
 
-    print(sequence)
-    return sequence
+   print(sequence)
+   return sequence
 
 
 
