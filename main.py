@@ -92,7 +92,7 @@ def readSequences( file_name ):
                 tmp[key] = tmp[key] + line.strip('\n')
 
             line = fasta.readline()
-
+    print(tmp)
     return tmp
 
 
@@ -102,19 +102,39 @@ def readSequences( file_name ):
 #generateSeeds is responsible for taking in a read sequence from a FASTA/FASTQ file
 #and utilzing the K-Mer Exact Match Seeding process to develop K-mer seeds to be
 #matched upon our reference sequence, return dictionary of seeds to calling method
-def generateSeeds( file_name ):
+#DEFAULT k-mer match is set to 11 mers
+def generateSeeds( file_name , k = 11):
 
-   sequence = readSequences( file_name )
-   dict = {}
+   #prime Dictionary
+   sequence = {"Header:": "", "Sequence:": ""}
+   sequence.clear()
+   
+   #create dict from our file
+   try:
+      f = open(file_name, 'rt')         
+      
+      #in both cases run this
+      sequence["Header"] = f.readline()
+      indexI = 0
+      while True:
+         readChar = f.read(1)
+         if not readChar:
+            break
+         sequence[indexI] = readChar
+         indexI = indexI + 1
+         
+   except Exception as e:
+      print("\nERROR:" + str(e))
 
+   #remove the header from the sequence, so it does not get parsed as a k-mer string
+   if "Header" in sequence:
+      del sequence["Header"]
+   
+   seedDict = {}   
    #loop through each element, then at each element parse possibility of string of current index to index + k.
    for element in sequence:
       subString = ""
-      byteSubString = b""
-
-      if '>' in element:
-        continue
-
+      
       i = int(element)
       while i < element + k:
          if(element + k > len(sequence)):
@@ -127,12 +147,13 @@ def generateSeeds( file_name ):
          i = i+1
 
       #check if the key already exists if so then add to its count, else make the count 1
-      if subString in dict:
-         dict[subString] = dict.get(subString, 0) + 1
+      if subString in seedDict:
+         seedDict[subString] = seedDict.get(subString, 0) + 1
       elif(len(subString) == k):
-         dict[subString] = 1
-
-   return dict
+         seedDict[subString] = 1
+   
+   print(seedDict)
+   return seedDict
 
 
 

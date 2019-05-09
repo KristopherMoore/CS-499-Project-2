@@ -22,7 +22,9 @@ This tool was built as a project for NAU's Bioinformatics course in the Spring o
 
 -Upon Local Alignment various intermediate steps will be performed and you will be notified when they complete. Depending on the size of your Fasta files this could take some time!
 
-![PROG PNG](images/progress.PNG "Progress Example")
+![READ PNG](images/progRead.PNG "Read Example")
+
+![GENERATE PNG](images/progGenerate.PNG "Generate Example")
 
 ## Documentation
 Google Document:
