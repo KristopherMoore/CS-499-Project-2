@@ -46,19 +46,19 @@ def main():
 
 		#main tool function, initiate all actions
         elif(userInput == "1"):
-            print("\nReading Target Sequence, Creating Target dictionary...")
+            print("\n\nReading Target Sequence, Creating Target dictionary...\n_____________________________________________________\n")
             targetDict = readSequences(targetSequenceFileName)
 
-            print("\nGenerating Seeds from Read Sequence, Creating Seeds dictionary...")
+            print("\n\nGenerating Seeds from Read Sequence, Creating Seeds dictionary...\n_____________________________________________________\n")
             seedsDict = generateSeeds(readSequenceFileName)
 
-            print("\nMatching Seeds on our Target, Creating Matched dictionary...")
+            print("\n\nMatching Seeds on our Target, Creating Matched dictionary...\n_____________________________________________________\n")
             matchedDict = matchSeedOnReference(targetDict, seedsDict)
 
-            print("\nExtending matches, Creating FinalSeeds dictionary...")
+            print("\n\nExtending matches, Creating FinalSeeds dictionary...\n_____________________________________________________\n")
             finalDict = extendMatchedSeeds(targetDict, matchedDict)
 
-            print("\nPerforming Final Local Alignment...")
+            print("\n\nPerforming Final Local Alignment...\n_____________________________________________________\n")
             localAlignment(targetDict, finalDict)
 
         #allow users to modify the Target Sequence Location
