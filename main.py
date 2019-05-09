@@ -2,8 +2,8 @@
 ##
  # @file main.py
  #
- # @version 1.01
- #          Kristopher Moore (15 April 2019)
+ # @version 1.03
+ #          Kristopher Moore (8 May 2019) -- Command-Line User Interface
  #          Samantha Muellner (25 April 2019)
  #          Initial Program Build.
 ##
@@ -14,7 +14,64 @@ import itertools
 
 #main module responsible for handling dataset and calling functions
 def main():
-	readSequences("sample.fasta")
+	
+    #initializations
+    executionFlag = True
+    targetSequenceFileName = ""
+    readSequenceFileName = ""
+   
+    #greeting message
+    print("\nCS:499-Bioinformatics, Local Alignment Using Seeds Tool:\n_____________________________________________________\n\n")
+   
+    #request location of TARGET sequence from user (The sequence we want to align to)
+    targetSequenceFileName = requestSequence("TARGET")
+   
+    #request location of READ sequence from user (The sequence we want to use for alignment)
+    readSequenceFileName = requestSequence("READ")
+   
+    #program loop, only allow exit when the user has specifically requested to do so
+    while executionFlag:
+        print("\nSelect a function to Execute\n\n"
+        +"\t1: Perform Local Alignment\n"
+        +"\t2: Change (Target)Sequence\n"
+        +"\t3: Change (Read)Sequence\n"
+        +"\t0: Quit\n")
+        
+        userInput = input("\tENTER NUMBER:")
+      
+        #check userChoices
+        if(userInput == "0"):
+            print("\nEXITING...")
+            executionFlag = False
+      
+		#main tool function, initiate all actions
+        elif(userInput == "1"):
+            print("\nReading Target Sequence, Creating Target dictionary...")
+            targetDict = readSequences(targetSequenceFileName)
+         
+            print("\nGenerating Seeds from Read Sequence, Creating Seeds dictionary...")
+            seedsDict = generateSeeds(readSequenceFileName)
+		 
+            print("\nMatching Seeds on our Target, Creating Matched dictionary...")
+            matchedDict = matchSeedOnReference(targetDict, seedsDict)
+		 
+            print("\nExtending matches, Creating FinalSeeds dictionary...")
+            finalDict = extendMatchedSeeds(targetDict, matchedDict)
+		 
+            print("\nPerforming Final Local Alignment...")
+            localAlignment(targetDict, finalDict)
+      
+        #allow users to modify the Target Sequence Location	  
+        elif(userInput == "2"):
+            targetSequenceFileName = requestSequence("TARGET")
+      
+        #allow users to modify the Read Sequence Location
+        elif(userInput == "3"):
+            readSequenceFileName = requestSequence("READ")
+      
+        #invalid input
+        else:
+            print("Invalid Selection, Please select from the list")
 
 
 #---AUSTIN---
@@ -36,7 +93,6 @@ def readSequences( file_name ):
 
             line = fasta.readline()
             
-    print(tmp)
     return tmp
 	
 
@@ -48,12 +104,16 @@ def readSequences( file_name ):
 #matched upon our reference sequence, return dictionary of seeds to calling method
 def generateSeeds( file_name ):
 	
-   dict = readSequences( file_name )
+   sequence = readSequences( file_name )
+   dict = {}
    
    #loop through each element, then at each element parse possibility of string of current index to index + k.
    for element in sequence:
       subString = ""
       byteSubString = b""
+      
+      if '>' in element:
+        continue
       
       i = int(element)
       while i < element + k:
@@ -153,6 +213,13 @@ def sw(a, b, match_score=3, gap_cost=2):
 def localAlignment( reference, finalSeeds ):
 	begining , ending = sw(reference,finalSeeds);
 	print(reference[begining:ending]);
+	
+	
+	
+#helper function to request a sequence from the user   
+def requestSequence(fileType):
+   UI = input("\nEnter File name for the (" + str(fileType) + ") Sequence (.FASTA format): ")
+   return UI
 
 
 #ensure we can forward declare our methods.
