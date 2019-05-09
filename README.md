@@ -14,7 +14,7 @@ This tool was built as a project for NAU's Bioinformatics course in the Spring o
 ## Usage
 -On execution, you will be prompted to enter your Target Sequence (the Reference sequence you want to align to) and a Read Sequence (the Sequence you want to be aligned).
 
-![RUN PNG](images/run.PNG "Run Example")
+![READ PNG](images/readInput.PNG "Input Example")
 
 -Following that information, you will be brought to a small User Interface which allows for 4 choices, select one to continue or select to end the program.
 
