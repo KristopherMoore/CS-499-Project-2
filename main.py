@@ -213,6 +213,8 @@ def localAlignment( reference, finalSeeds ):
 	for key in reference:
 		refString = str(reference[key])
 		finalString = str(finalSeeds)
+		print(refString)
+		print(finalString)
 		begining , ending = sw(refString,finalString);
 		print(reference[key][begining:ending]);
 
