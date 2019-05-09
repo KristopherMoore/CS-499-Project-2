@@ -26,6 +26,8 @@ This tool was built as a project for NAU's Bioinformatics course in the Spring o
 
 ![GENERATE PNG](images/progGenerate.PNG "Generate Example")
 
+![MATCH PNG](images/progMatch.PNG "Match Example")
+
 ## Documentation
 Google Document:
 - https://docs.google.com/document/d/1H1M-8eIqp5qXSI-awVras7IwrL8CzIw7B8y7r-w9bfE/edit?usp=sharing

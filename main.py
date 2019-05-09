@@ -164,12 +164,16 @@ def generateSeeds( file_name , k = 11):
 def matchSeedOnReference( reference, seeds ):
     matched = {}
     index = 0
-    for seed in seeds.values():
+    for seed in seeds.keys():
         for refString in reference.values():
-            if seed in refString and seed not in matched.values():
-                matched[index] = seed
-                index += 1
+            try:
+               if seed in refString and seed not in matched.values():
+                  matched[index] = seed
+                  index += 1
+            except TypeError as e:
+               print(e)
 
+    print(matched)
     return matched
 
 
@@ -186,6 +190,7 @@ def extendMatchedSeeds( reference, matchedSeeds ):
     for item in matchedSeeds.values():
         sequence.append(sw(reference, item))
 
+    print(sequence)
     return sequence
 
 
